@@ -6,7 +6,7 @@ Link simbolic
 
 Afiseaza dimensiunea totala de pe disk a unui folder
 
-    du -hs fold§er_name
+    du -hs folder_name
 
 Schimbare owner fisier
 
@@ -69,21 +69,13 @@ Ruleaza comanda ”echo "I am $USER, with uid $UID"“ de pe alt utilizator, far
 
     sudo -H -u IronMan bash -c 'echo "I am $USER, with uid $UID"'
 
-Afiseaza liniile cu numar par din fisierul ”users.csv“.
-
-    sed -n 2-2p users.csv
-
-sau
-
-    awk 'NR%2==0' users.csv
-
 ## Cautare
 
 Cauta dupa dimensiunea fisierelor
 
     find /path -size +10M
 
-List all regular files from /etc
+Afiseaza toate fisierele obisnuite din /etc
 
     find /etc -maxdepth 1 -type f -ls | tr -s " " | cut -d " " -f12
 
@@ -91,7 +83,7 @@ Afisarea tuturor fisierele obisnuite (nu si directoarele) din radacina directorl
 
     ls -p /etc | grep -v /
 
-Afisati toate fisierele are caror nume contine sirul de caractere .log din ierarhia de fisiere "/var/log" si care au permisiunile rw- r-- ---.
+Afisati toate fisierele ale caror nume contine sirul de caractere .log din ierarhia de fisiere "/var/log" si care au permisiunile rw- r-- ---.
 
     sudo find /var/log -type f -name "*.log" -perm 640
 
@@ -170,7 +162,7 @@ Afiseaza toate procesele de tip daemon din sistem
 
     ps -eo 'tty,pid,comm' | grep ^?
 
-Afiseaza suma PID-urilor tuturor proceselor din sistme.
+Afiseaza suma PID-urilor tuturor proceselor din sistem.
 
     ps aux | awk '{print $2}' | tail -n +2 | paste -s -d + - | bc
 
@@ -278,14 +270,6 @@ Scrieti adresele IPv4 de pe toate interfetele de retea ale sistemului.
 Afiseaza porturile de tip TCP care asculta pe masina de lucru.
 
     sudo netstat -plnt
-
-Montati discul si afisati continutul fisierului "file" aflat in cadrul disclui "data".
-
-    wget elf.cs.pub.ro/uso/res/final/31-jan-data
-    sudo mkdir /mnt/drive_uso
-    sudo mount data /mnt/mydrive
-    cd /mnt/mydrive
-    cat file
 
 ## Filtre text
 
@@ -406,7 +390,7 @@ Cripteaza fisierul ”task4c.txt“ folosind algoritmul de criptare Camellia cu 
 
 ## Scripts
 
-Script care primeste ca parametru calea catre un director si creeaza acel director. Daca directorul deja exista, se va afisa mesajul "Directory already exists".
+**1.** Script care primeste ca parametru calea catre un director si creeaza acel director. Daca directorul deja exista, se va afisa mesajul "Directory already exists".
 
     nano 4.sh
     chmod +x 4.sh
@@ -424,7 +408,7 @@ Continut script:
         echo "Directory made successfully"
     fi
 
-Script care primeste ca argument o adresa si afiseaza adresa IP asociata acesteia. Script-ul va intoarce codul de eroare 1 daca va primi mai mult sau mai putin de un argument.
+**2.** Script care primeste ca argument o adresa si afiseaza adresa IP asociata acesteia. Script-ul va intoarce codul de eroare 1 daca va primi mai mult sau mai putin de un argument.
 
     nano 4a.sh
     chmod +x 4a.sh
@@ -440,7 +424,7 @@ Continut script:
         dig +short $1
     fi
 
-Script care aplica algoritmul de encodare base64 asupra fiecarei linii a fisierului ”to_encode.txt“ din arhiva de la subpunctul anterior.
+**3.** Script care aplica algoritmul de encodare base64 asupra fiecarei linii a fisierului ”to_encode.txt“ din arhiva de la subpunctul anterior.
 
     #!/bin/bash
     nr=$(cat ~/to_encode.txt | wc -l)
@@ -451,7 +435,7 @@ Script care aplica algoritmul de encodare base64 asupra fiecarei linii a fisieru
         sed -i 's/'$text'/'$decoded'/g' ~/to_encode.txt;
     done
 
-Script care afiseza, pentru fiecare utilizator de pe sistem, mesajul "Run, \<user>, run!" unde \<user> este inlocuit cu numele utilizatorului.
+**4.** Script care afiseza, pentru fiecare utilizator de pe sistem, mesajul "Run, \<user>, run!" unde \<user> este inlocuit cu numele utilizatorului.
 
     #!/bin/bash
     users=$(cat /etc/passwd | cut -d: -f1)
@@ -460,7 +444,7 @@ Script care afiseza, pentru fiecare utilizator de pe sistem, mesajul "Run, \<use
             echo "Run, "$i", run!"
     done
 
-Script-ul extins de la subpunctul anterior astfel incat sa afiseze mesajul "Run, \<user>, run!" pentru utilizatorul curent atunci cand este rulat cu argumentul "me".
+**5.** Script-ul extins de la subpunctul anterior astfel incat sa afiseze mesajul "Run, \<user>, run!" pentru utilizatorul curent atunci cand este rulat cu argumentul "me".
 
     #!/bin/bash
     users=$(cat /etc/passwd | cut -d: -f1)
@@ -475,7 +459,7 @@ Script-ul extins de la subpunctul anterior astfel incat sa afiseze mesajul "Run,
         done
     fi
 
-Script care afsieaza doar adresa IPv4 a unui domeniu primit ca argument in linia de comanda. Extindeti script-ul de la subpunctul anterior astfel incat la primirea unui al doilea argument, "v6", sa afiseze doar adresa IPv6 a domeniului primit ca prim argument.
+**6.** Script care afsieaza doar adresa IPv4 a unui domeniu primit ca argument in linia de comanda. Extindeti script-ul de la subpunctul anterior astfel incat la primirea unui al doilea argument, "v6", sa afiseze doar adresa IPv6 a domeniului primit ca prim argument.
 
     touch script.sh
     nano script.sh'
@@ -498,7 +482,7 @@ Continut script:
     ./script.sh www.google.com - Dovada c)
     ./script.sh www.google.com v6 - Dovada d)
 
-Script care primeste ca argument un sir de 5 caractere, aplica algoritmul de encodare base64 pe acesta si scrie rezultatul la finalul unui
+**7.** Script care primeste ca argument un sir de 5 caractere, aplica algoritmul de encodare base64 pe acesta si scrie rezultatul la finalul unui
 
 fisier numit ”passwords.txt“.
 
@@ -513,7 +497,7 @@ Continut script:
 
     ./script.sh stringrandom - Dovada
 
-Script care primeste ca argument numele unui utilizator. Daca acesta exista, script-ul va afisa data ultimei autentificari a acestuia. Astfel, il va adauga in sistem.
+**8.** Script care primeste ca argument numele unui utilizator. Daca acesta exista, script-ul va afisa data ultimei autentificari a acestuia. Astfel, il va adauga in sistem.
 
     nano 3d.sh
     chmod +x 3d.sh
@@ -530,7 +514,7 @@ Continut script:
         sudo useradd ${user}
     fi
 
-Oneliner care instaleaza utilitarul "tree" daca acesta nu exista in sistem, sau il dezinstaleaza in caz contrar.
+**9.** Oneliner care instaleaza utilitarul "tree" daca acesta nu exista in sistem, sau il dezinstaleaza in caz contrar.
 
 Continut script:
 
@@ -540,7 +524,7 @@ Continut script:
     if ! [ -z $(grep "sudo apt autoremove" temp.txt) ]; then
         sudo apt-get --yes remove tree
 
-Script care primeste ca argument doua numere pozitive si afiseaza toate numrele din intervalul inchis determinat de cele doua argumente.
+**10.** Script care primeste ca argument doua numere pozitive si afiseaza toate numrele din intervalul inchis determinat de cele doua argumente.
 
     #!/bin/bash
 
@@ -555,7 +539,7 @@ Script care primeste ca argument doua numere pozitive si afiseaza toate numrele 
         done
     fi
 
-Script care sa parseze fisierul ”users.csv“ si sa creeze cate un utilizator cu datele din fisier (nume si parola ̆).
+**11.** Script care sa parseze fisierul ”users.csv“ si sa creeze cate un utilizator cu datele din fisier (nume si parola ̆).
 
     nano 2b.sh
     chmod +x 2b.sh
@@ -572,7 +556,7 @@ Continut script:
     done < fisier_temp.txt
     rm -rf fisier_temp.txt
 
-Script care primeste un numar variabil de parametrii de tip intreg si calculeaza suma acestora.
+**12.** Script care primeste un numar variabil de parametrii de tip intreg si calculeaza suma acestora.
 
     nano 2d.sh
     chmod +x 2d.sh
@@ -587,7 +571,7 @@ Continut script:
     done
     echo $sum
 
-Script care modifica numele fisierelor ”.jpeg“, adaugand sufixul cat inaintea extensiei ”.jpeg“ si converteste fisierul redenumit intr-un fisier de tip png.. (Hint: man convert).
+**13.** Script care modifica numele fisierelor ”.jpeg“, adaugand sufixul cat inaintea extensiei ”.jpeg“ si converteste fisierul redenumit intr-un fisier de tip png.. (Hint: man convert).
 
     touch script3b.sh
     nano script3b.sh
@@ -600,7 +584,7 @@ Continut script:
     for i in _.jpeg; do mv ${i} ${i%.jpeg}\_cat.jpeg ; convert ${i%.jpeg}\_cat.jpeg ${i%.jpeg}\_cat.png; done
     for i in _.jpeg; do rm -rf ${i}; done
 
-Script care genereaza o parola de lungimea indicata de primul argument al scriptului care contine caractere alfabetice daca al doilea argument al scriptului este ”alfa“ sau caractere alfanumerice daca al doilea argument al scriptului este ”alfanum“.
+**14.** Script care genereaza o parola de lungimea indicata de primul argument al scriptului care contine caractere alfabetice daca al doilea argument al scriptului este ”alfa“ sau caractere alfanumerice daca al doilea argument al scriptului este ”alfanum“.
 
     touch task4b.sh
     nano task4b.sh
@@ -618,7 +602,7 @@ Continut script:
         tr -dc 'a-zA-Z0-9' < /dev/urandom | fold -w $lungime_parola | head -n 1
     fi
 
-Script care genereaza o parola cu caractere alfanumerice aleatoare. Lungimea parolei va fi data ca argument in linia de comanda.
+**15.** Script care genereaza o parola cu caractere alfanumerice aleatoare. Lungimea parolei va fi data ca argument in linia de comanda.
 
     nano 2d.sh
     chmod +x 2d.sh
@@ -628,7 +612,7 @@ Continut script:
     lungime=$1
     tr -dc 'a-zA-Z0-9' < /dev/urandom | fold -w $lungime | head -n 1
 
-Script care primeste un sir de caractere ca argument si afiseaza hash-ul md5 al acestui sir. Daca scriptul nu primeste niciun argument, acesta trebuie sa intoarca codul de eroare 1.
+**16.** Script care primeste un sir de caractere ca argument si afiseaza hash-ul md5 al acestui sir. Daca scriptul nu primeste niciun argument, acesta trebuie sa intoarca codul de eroare 1.
 
     nano 5c.sh
     chmod +x 5c.sh
@@ -645,7 +629,7 @@ Continut script:
         echo "1"
     fi
 
-Script care primeste ca argument in linie de comanda un nummar de telefon. Scriptul va afisa "Numarul de telefon este valid" daca numarul
+**17.** Script care primeste ca argument in linie de comanda un nummar de telefon. Scriptul va afisa "Numarul de telefon este valid" daca numarul
 de telefon este de forma "07xxxxxxxx", unde ”x“ este o cifra. Altfel se va afisa ”Eroare“.
 
     #! /bin/bash
